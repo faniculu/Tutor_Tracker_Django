@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomCreationForm, CustomChangeForm
 from .models import MyCustomUser
@@ -12,11 +13,11 @@ class SignUpView(CreateView):
 	success_url = reverse_lazy('login')
 	template_name = 'signup.html'
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin,UpdateView):
 	model = MyCustomUser
 	fields = ['username','email','first_name', 'last_name', 'stdno']
 	template_name = 'user_update_form.html'
 
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin,DetailView):
 	model = MyCustomUser
 	template_name = 'user_details.html'
