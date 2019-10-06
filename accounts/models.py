@@ -5,7 +5,7 @@ from django.urls import reverse
 
 class MyCustomUser(AbstractUser):
 
-	stdno = models.PositiveIntegerField(null = True, blank = True)
+	stdno = models.PositiveIntegerField(null = True, blank = True, unique = True)
 
 	def get_absolute_url(self):
 		return reverse('user_details', args = [str(self.id)])
