@@ -1,4 +1,7 @@
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase , TestCase
+from django.urls import reverse
+from django.contrib.auth import get_user_model
+
 
 
 
@@ -12,12 +15,13 @@ class SimpleTests(SimpleTestCase):
 		response = self.client.get('/tutortracker/about/')
 		self.assertEqual(response.status_code,200)
 
-	def test_login_page_status_code(self):
-		response = self.client.get('/accounts/login/')
-		self.assertEqual(response.status_code,200)
 
-	def test_logout_page_status_code(self):
-		response = self.client.get('/accounts/logout/')\
-		#The logout url redirects to home page hence we check for 302 status code. 
-		#Read more about 302 status code https://en.wikipedia.org/wiki/HTTP_302
-		self.assertEqual(response.status_code,302)
+	def test_home_uses_correct_template(self):
+		response = self.client.get(reverse('home'))
+		self.assertEqual(response.status_code,200)
+		self.assertTemplateUsed(response, 'home.html')
+
+	def test_about_uses_correct_template(self):
+		response = self.client.get(reverse('about'))
+		self.assertEqual(response.status_code,200)
+		self.assertTemplateUsed(response, 'about.html')
