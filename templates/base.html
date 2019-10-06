@@ -1,7 +1,14 @@
 <h1>Welcome to tutor tracker website :)</h1>
 
 <header>
-	<a href="{% url 'home' %}">Home</a> | <a href="{% url 'about' %}">About</a>
+	{% if user.is_authenticated %}
+		<p>Hi {{user.username}}! </p>
+		<a href="{% url 'logout' %}"> logout | </a>
+	{% else %}
+		<p>You are not logged in </p>
+		<a href="{% url 'login'%}"> login | </a>
+	{% endif %}
+	<a href="{% url 'home' %}"> Home </a> | <a href="{% url 'about' %}"> About </a>
 </header>
 
 {% block content %}
