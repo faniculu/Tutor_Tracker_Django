@@ -1,15 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .forms import CustomCreationForm, CustomChangeForm
-from .models import MyCustomUser
+from .forms import StudentSignUpForm, LectureSignUpForm, CustomChangeForm
+from .models import CustomUser , Student
 
 
-class CustomUserAdmin(UserAdmin):
 
-	add_form = CustomCreationForm
-	form = CustomChangeForm
-	model = MyCustomUser
-	list_display = ['email', 'username', 'stdno', 'is_staff', ] 
-
-
-admin.site.register(MyCustomUser, CustomUserAdmin)
+admin.site.register(CustomUser,UserAdmin)
+admin.site.register(Student)
